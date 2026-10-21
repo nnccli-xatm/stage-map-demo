@@ -8,7 +8,7 @@
 
   var VERSION = "v2.0-free";
   /** 洞察外链表单占位；就绪后填入完整 URL */
-  var FORM_URL = "";
+  var FORM_URL = "https://github.com/nnccli-xatm/stage-map-demo/issues/new?template=insight-feedback.yml&title=%5B%E6%B4%9E%E5%AF%9F%5D%20";
   var INSIGHT_KEY = "stage-map-insight-v2";
 
   var DIMS = ["思考行动", "精力恢复", "关系意义", "工作方向"];

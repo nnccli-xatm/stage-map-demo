@@ -1,0 +1,51 @@
+name: 洞察反馈
+description: 阶段地图可选 3 题反馈（与 H5 demo 对齐）
+title: "[洞察] "
+labels: ["insight"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        完全自愿。也可把 demo 里「复制反馈 JSON」的内容贴到最后一栏。
+        产品：https://nnccli-xatm.github.io/stage-map-demo/
+  - type: dropdown
+    id: seen
+    attributes:
+      label: 1. 「被说中」程度？
+      description: 报告是否像你最近两周
+      options:
+        - 5 · 非常像我最近两周
+        - 4 · 比较像
+        - 3 · 有一半像
+        - 2 · 不太像
+        - 1 · 完全不像
+        - 跳过
+    validations:
+      required: false
+  - type: dropdown
+    id: share
+    attributes:
+      label: 2. 愿不愿意把分享卡发给朋友 / 发到社交平台？
+      options:
+        - 愿意
+        - 也许，改一下文案再说
+        - 不愿意
+        - 跳过
+    validations:
+      required: false
+  - type: textarea
+    id: note
+    attributes:
+      label: 3. 有一句想改或不准的话？（选填）
+      description: 例如哪一句不像你、今天一步是否可行
+      placeholder: 最多约 200 字
+    validations:
+      required: false
+  - type: textarea
+    id: raw_json
+    attributes:
+      label: （可选）从 demo 复制的反馈 JSON
+      description: 若你点了「复制反馈 JSON」，可整段粘贴于此
+      render: json
+    validations:
+      required: false
