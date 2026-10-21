@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="阶段地图 · 免费完整报告 v2.0-free · 先看清眼前这一段" />
+  <title>阶段地图 · 免费完整地图</title>
+  <link rel="stylesheet" href="styles.css?v=2.0-free" />
+</head>
+<body>
+  <div class="app">
+    <!-- 入口：画像选择 -->
+    <section id="screen-chooser" class="screen active">
+      <div class="brand">
+        <div class="brand-mark">阶</div>
+        <div>
+          <h1>阶段地图</h1>
+          <p>先看清眼前这一段 · <span class="ver-badge">v2.0-free</span></p>
+        </div>
+      </div>
+      <div class="map-silhouette" aria-hidden="true">
+        <span class="map-dot pulse"></span>
+        <span class="map-path"></span>
+        <span class="map-dot dim"></span>
+        <span class="map-path dim"></span>
+        <span class="map-dot dim"></span>
+        <span class="map-path dim"></span>
+        <span class="map-dot dim"></span>
+      </div>
+      <div class="card landing-card">
+        <h2 class="hero-title">你现在最想理清的是哪一件？</h2>
+        <p class="lead">回答约 8 个关于最近两周的问题。免费拿到当前卡点、今天一步，以及完整六块地图——无需解锁、无需付款。</p>
+        <div class="persona-grid" role="group" aria-label="选择画像">
+          <button type="button" class="persona-card" data-persona="career" id="btn-persona-career">
+            <span class="persona-tag">默认推荐</span>
+            <strong>职场迷茫</strong>
+            <span class="persona-desc">工作还能做下去，但你不想一直这样做下去。</span>
+          </button>
+          <button type="button" class="persona-card" data-persona="side" id="btn-persona-side">
+            <strong>副业过载</strong>
+            <span class="persona-desc">一个晚上忙了三件事，最想推进的那件还是没动。</span>
+          </button>
+        </div>
+        <details class="boundary-fold">
+          <summary>边界与数据（点开看）</summary>
+          <div class="disclaimer-box">
+            <ul>
+              <li>用于自我梳理与行动安排，不用于医疗诊断或替代专业服务；结果由规则生成，仅供参考。</li>
+              <li>本页为<strong>纯前端</strong>：答案只在本机用于生成报告，<strong>不上传服务器</strong>；刷新或关闭页面即清除答题数据。</li>
+              <li>可选洞察反馈仅默认写入本机 localStorage；你可自行复制外发。外链表单 URL 待定。</li>
+              <li>若你正经历自伤、伤人念头，或需要紧急帮助，请立即联系当地紧急服务或公共心理援助热线。</li>
+            </ul>
+            <p style="margin:8px 0 0;font-size:12px"><a href="#" id="link-privacy">完整数据说明</a></p>
+          </div>
+        </details>
+        <a class="help-link" id="link-help" href="#">需要帮助？（公共求助占位）</a>
+      </div>
+      <p class="footer-disc">本报告为成长工具输出，非医疗或心理咨询意见。<br />工作名「阶段地图」· <span class="ver-badge">v2.0-free</span> · 全程免费</p>
+    </section>
+
+    <!-- 首屏：选定画像后的落地 -->
+    <section id="screen-landing" class="screen">
+      <div class="brand">
+        <div class="brand-mark">阶</div>
+        <div>
+          <h1>阶段地图</h1>
+          <p id="landing-brand-sub">免费完整地图 · v2.0-free</p>
+        </div>
+      </div>
+      <div class="card landing-card">
+        <button type="button" class="btn-text" id="btn-back-chooser">← 换一个入口</button>
+        <h2 class="hero-title" id="landing-h1"></h2>
+        <p class="lead" id="landing-lead"></p>
+        <button type="button" class="btn btn-primary" id="btn-start" disabled>看看我现在卡在哪</button>
+        <p class="free-banner">全程免费 · 完整六块地图直接展开 · <strong>无支付、无兑换码</strong></p>
+        <label class="check-row">
+          <input type="checkbox" id="agree" />
+          <span>我已阅读边界说明，同意以本地演示方式体验答题与报告。</span>
+        </label>
+      </div>
+      <p class="footer-disc">非医疗 · 非心理咨询 · 非投资建议</p>
+    </section>
+
+    <!-- 答题 -->
+    <section id="screen-quiz" class="screen">
+      <div class="brand">
+        <div class="brand-mark">阶</div>
+        <div>
+          <h1>阶段地图</h1>
+          <p id="quiz-brand-sub">按最近 14 天的实际情况回答</p>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-meta">
+          <span id="progress-label">第 1 / 8 题</span>
+          <span id="progress-feel">刚起步</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      </div>
+      <div class="card">
+        <div class="q-label" id="q-label">Q1</div>
+        <h2 class="q-title" id="q-title"></h2>
+        <p class="q-hint" id="q-hint"></p>
+        <div class="options" id="options"></div>
+        <p class="micro-echo" id="micro-echo" hidden></p>
+        <div class="btn-row" id="quiz-next-wrap" style="display:none">
+          <button type="button" class="btn btn-primary" id="btn-quiz-next">下一题</button>
+        </div>
+        <div class="btn-row">
+          <button type="button" class="btn btn-ghost" id="btn-quiz-back">上一题</button>
+        </div>
+      </div>
+      <p class="footer-disc">非医疗 · 非心理咨询 · 非投资建议</p>
+    </section>
+
+    <!-- 免费摘要（完整小结论；可一键展开全图） -->
+    <section id="screen-summary" class="screen">
+      <div class="brand">
+        <div class="brand-mark">阶</div>
+        <div>
+          <h1>阶段地图</h1>
+          <p>免费摘要 · 已定位</p>
+        </div>
+      </div>
+      <div class="card summary-card">
+        <p class="seen-line" id="sum-seen"></p>
+        <div class="phase-row">
+          <span class="phase-chip" id="sum-phase">相位</span>
+        </div>
+        <p class="summary-situation" id="sum-situation"></p>
+        <p class="summary-today" id="sum-today"></p>
+        <p class="summary-cite" id="sum-cite"></p>
+        <p class="value-prop" id="sum-value">你已经拿到这次的卡点提示和今天一步，可以先带走试试。完整地图会把这一步接到接下来 30 天的取舍、减负与复盘——同样免费。</p>
+        <button type="button" class="btn btn-primary" id="btn-expand">展开完整地图</button>
+        <p class="free-note">一键展开 · 无门槛 · 无支付</p>
+      </div>
+      <p class="footer-disc">本摘要由规则引擎生成 · 非诊疗结论 · 全程免费</p>
+    </section>
+
+    <!-- 完整报告 -->
+    <section id="screen-report" class="screen">
+      <div class="brand report-brand" id="report-brand">
+        <div class="brand-mark">阶</div>
+        <div>
+          <h1>阶段地图</h1>
+          <p>完整报告 · 地图已展开（免费）</p>
+        </div>
+      </div>
+      <div class="report-nav" id="report-nav"></div>
+      <div id="report-blocks"></div>
+
+      <div class="share-card" id="share-card" aria-label="分享卡预览">
+        <div class="sc-brand">阶段地图 · 我的阶段坐标</div>
+        <p class="sc-phase-name" id="sc-phase-name"></p>
+        <p class="sc-punch" id="sc-punch"></p>
+        <p class="sc-action" id="sc-action"></p>
+        <div class="sc-foot" id="sc-foot">也去标一下你的坐标 → · 免费</div>
+      </div>
+      <div class="btn-row" style="margin-top:8px">
+        <button type="button" class="btn btn-secondary" id="btn-copy-share">复制分享文案</button>
+      </div>
+
+      <!-- 可选洞察反馈 -->
+      <div class="card insight-card" id="insight-card">
+        <h2 class="insight-title">可选反馈（帮我们听懂你）</h2>
+        <p class="insight-lead">3 道短题，完全自愿。默认只保存在本机；可复制发给我们。不上传服务器。</p>
+        <label class="insight-q">
+          <span>1. 「被说中」程度？</span>
+          <select id="insight-seen">
+            <option value="">跳过</option>
+            <option value="5">5 · 非常像我最近两周</option>
+            <option value="4">4 · 比较像</option>
+            <option value="3">3 · 有一半像</option>
+            <option value="2">2 · 不太像</option>
+            <option value="1">1 · 完全不像</option>
+          </select>
+        </label>
+        <label class="insight-q">
+          <span>2. 愿不愿意把分享卡发给朋友 / 发到社交平台？</span>
+          <select id="insight-share">
+            <option value="">跳过</option>
+            <option value="yes">愿意</option>
+            <option value="maybe">也许，改一下文案再说</option>
+            <option value="no">不愿意</option>
+          </select>
+        </label>
+        <label class="insight-q">
+          <span>3. 有一句想改或不准的话？（选填）</span>
+          <textarea id="insight-note" maxlength="200" rows="3" placeholder="例如：哪一句不像你、今天一步是否可行…"></textarea>
+        </label>
+        <div class="btn-row">
+          <button type="button" class="btn btn-warm" id="btn-save-insight">保存到本机</button>
+          <button type="button" class="btn btn-ghost" id="btn-copy-insight">复制反馈 JSON</button>
+        </div>
+        <p class="insight-meta" id="insight-meta">外链表单：待定（FORM_URL）。详见 demo/README「洞察反馈」。</p>
+      </div>
+
+      <div class="btn-row" style="margin-top:16px">
+        <button type="button" class="btn btn-ghost" id="btn-restart">再测一次</button>
+      </div>
+      <p class="footer-disc">阶段地图用于日常自我梳理与行动规划，呈现基于本次回答的近期提示，不提供医疗诊断或心理咨询服务。<br /><span class="ver-badge">v2.0-free</span> · 全程免费 · 答案仅存本机</p>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <div class="modal-backdrop" id="help-modal">
+    <div class="modal">
+      <h3>需要帮助？</h3>
+      <p>若处于紧急危险，请立即拨打当地紧急求助电话（如 110 / 120，以当地为准）。</p>
+      <p>心理援助可查询当地卫生健康委公布的热线，或公开资源如「希望 24 热线」等（号码以官方为准）。</p>
+      <p>本产品仅展示公共指引，不提供一对一危机干预，亦不收集危机细节。</p>
+      <button type="button" class="btn btn-primary" id="btn-close-help">关闭</button>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="privacy-modal">
+    <div class="modal">
+      <h3>数据说明（与本页实现一致）</h3>
+      <p><strong>处理者：</strong>本页为本地静态页，无运营方服务器接收你的答案。</p>
+      <p><strong>答题数据：</strong>选项仅存在于当前浏览器会话内存；刷新、关闭或「再测一次」即清除。</p>
+      <p><strong>洞察反馈：</strong>若你点击保存，写入本机 localStorage 键 <code>stage-map-insight-v2</code>；可随时清除站点数据删除。不自动上传。</p>
+      <p><strong>是否上传：</strong>不上传。无账号、无后端、无分析埋点服务器。</p>
+      <p>若日后正式产品改为云端保存，将在处理前另行清晰告知，并提供删除入口。</p>
+      <button type="button" class="btn btn-primary" id="btn-close-privacy">关闭</button>
+    </div>
+  </div>
+
+  <script src="app.js?v=2.0-free"></script>
+</body>
+</html>
