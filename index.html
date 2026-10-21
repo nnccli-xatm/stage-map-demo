@@ -5,9 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="description" content="阶段地图 · 免费完整报告 v2.0-free · 先看清眼前这一段" />
   <title>阶段地图 · 免费完整地图</title>
-  <link rel="stylesheet" href="styles.css?v=2.0-free" />
+  <link rel="stylesheet" href="styles.css?v=2.0-free-inapp" />
 </head>
 <body>
+  <!-- 微信/内置浏览器打开引导（XHS 外链不可点，用户常经微信打开） -->
+  <div id="inapp-open-banner" class="inapp-open-banner" hidden>
+    <p class="inapp-open-text">若页面显示异常或功能不全，请点击右上角 <strong>···</strong> → <strong>在浏览器打开</strong>。</p>
+    <button type="button" class="inapp-open-copy" id="btn-copy-demo-url">复制体验链接</button>
+  </div>
   <div class="app">
     <!-- 入口：画像选择 -->
     <section id="screen-chooser" class="screen active">
@@ -226,6 +231,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=2.0-free"></script>
+  <script src="app.js?v=2.0-free-inapp"></script>
 </body>
 </html>

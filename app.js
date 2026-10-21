@@ -829,7 +829,47 @@
     });
   }
 
+
+  function isInAppBrowser() {
+    var ua = (navigator.userAgent || "").toLowerCase();
+    return (
+      /micromessenger/.test(ua) ||
+      /wxwork/.test(ua) ||
+      /miniprogram/.test(ua) ||
+      /qq\//.test(ua) ||
+      /aweme|douyin|bytedance/.test(ua) ||
+      /weibo/.test(ua) ||
+      /xiaohongshu|xhs|red/.test(ua)
+    );
+  }
+
+  function setupInAppOpenBanner() {
+    var banner = document.getElementById("inapp-open-banner");
+    var btn = document.getElementById("btn-copy-demo-url");
+    if (!banner) return;
+    if (isInAppBrowser() || /[?&]from=(xhs|wechat|wx)\b/i.test(location.search)) {
+      banner.hidden = false;
+    }
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var url = location.href.split("#")[0];
+      function ok() {
+        var prev = btn.textContent;
+        btn.textContent = "已复制";
+        setTimeout(function () { btn.textContent = prev; }, 1600);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(ok).catch(function () {
+          window.prompt("复制链接", url);
+        });
+      } else {
+        window.prompt("复制链接", url);
+      }
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
+    setupInAppOpenBanner();
     bind();
     showScreen("chooser");
     try {
