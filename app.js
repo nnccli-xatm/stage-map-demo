@@ -715,6 +715,66 @@
     return entry;
   }
 
+
+  function insightLabels(entry) {
+    var seenMap = {
+      "5": "5 · 非常像我最近两周",
+      "4": "4 · 比较像",
+      "3": "3 · 有一半像",
+      "2": "2 · 不太像",
+      "1": "1 · 完全不像",
+    };
+    var shareMap = {
+      yes: "愿意",
+      maybe: "也许，改一下文案再说",
+      no: "不愿意",
+    };
+    return {
+      seen: entry.seen ? seenMap[entry.seen] || entry.seen : "跳过",
+      share: entry.share ? shareMap[entry.share] || entry.share : "跳过",
+      note: entry.note || "（未填）",
+    };
+  }
+
+  /** Prefill classic Issue body (no form template — URL body= works). */
+  function buildInsightIssueUrl(entry) {
+    var L = insightLabels(entry);
+    var title = "[洞察] " + (entry.persona || "") + " · " + (entry.phase || "");
+    var body =
+      "## 阶段地图可选反馈\n\n" +
+      "- 产品：https://nnccli-xatm.github.io/stage-map-demo/\n" +
+      "- 版本：`" +
+      (entry.version || VERSION) +
+      "`\n" +
+      "- 人设：`" +
+      (entry.persona || "") +
+      "`\n" +
+      "- 阶段：`" +
+      (entry.phase || "") +
+      "`\n" +
+      "- 时间（UTC）：`" +
+      (entry.at || "") +
+      "`\n\n" +
+      "### 1. 「被说中」程度？\n\n" +
+      L.seen +
+      "\n\n" +
+      "### 2. 愿不愿意把分享卡发给朋友 / 发到社交平台？\n\n" +
+      L.share +
+      "\n\n" +
+      "### 3. 有一句想改或不准的话？\n\n" +
+      L.note +
+      "\n\n" +
+      "<details><summary>原始 JSON</summary>\n\n```json\n" +
+      JSON.stringify(entry, null, 2) +
+      "\n```\n</details>\n";
+    return (
+      "https://github.com/nnccli-xatm/stage-map-demo/issues/new?labels=insight&title=" +
+      encodeURIComponent(title) +
+      "&body=" +
+      encodeURIComponent(body)
+    );
+  }
+
   function bind() {
     $$(".persona-card").forEach(function (btn) {
       btn.addEventListener("click", function () {
@@ -789,6 +849,15 @@
     $("#btn-save-insight").addEventListener("click", function () {
       saveInsight();
     });
+    var submitBtn = $("#btn-submit-insight");
+    if (submitBtn) {
+      submitBtn.addEventListener("click", function () {
+        var entry = saveInsight();
+        var url = buildInsightIssueUrl(entry);
+        showToast("正在打开预填 GitHub Issue…");
+        window.open(url, "_blank", "noopener");
+      });
+    }
     $("#btn-copy-insight").addEventListener("click", function () {
       var entry = saveInsight();
       var raw = JSON.stringify(entry, null, 2);

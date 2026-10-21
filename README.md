@@ -62,7 +62,8 @@ python3 -m http.server 8765
 | 位置 | 完整报告页底部「可选反馈」 |
 | 题目 | ① 被说中程度 1–5　② 是否愿分享　③ 一句想改的话（选填） |
 | 默认存储 | 本机 `localStorage` 键 **`stage-map-insight-v2`**（JSON 数组） |
-| 外发 | 「复制反馈 JSON」后打开 `FORM_URL`（GitHub Issue 模板 `insight-feedback.yml`） |
+| 外发（主） | 「提交反馈到 GitHub」打开**预填** Issue（`title`+`body`+label `insight`） |
+| 外发（备） | 「复制反馈 JSON」后打开 `FORM_URL`（Issue 表单模板 `insight-feedback.yml`） |
 | Issue URL | https://github.com/nnccli-xatm/stage-map-demo/issues/new?template=insight-feedback.yml&title=%5B%E6%B4%9E%E5%AF%9F%5D%20 |
 | 隐私 | **不自动上传**；与页内数据说明一致。清除站点数据即可删除 |
 
