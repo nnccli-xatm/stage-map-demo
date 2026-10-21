@@ -1,3 +1,14 @@
+# Welcome · 阶段地图 demo
+
+Thanks for stopping by. This repo hosts the **free** Stage Map H5 demo.
+
+- **Try it live:** https://nnccli-xatm.github.io/stage-map-demo/
+- **Share an insight** (optional feedback via Issue template): https://github.com/nnccli-xatm/stage-map-demo/issues/new?template=insight-feedback.yml&title=%5B%E6%B4%9E%E5%AF%9F%5D%20
+
+No account needed for the demo. Insights stay on your device until you choose to open an Issue. Questions and ideas welcome in Issues.
+
+---
+
 # 阶段地图 · 免费传播版 H5 · v2.0-free
 
 **工作名：** 阶段地图  
